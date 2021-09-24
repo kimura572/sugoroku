@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block content %}
+<br>
+<h2>Administrator page</h2>
+
+{% for u in user %}
+    <tr>
+        <td>{{ u }}</td>
+    </tr>
+{% endfor %}
+ 
+<br>
+<table class="table">
+    <thead class="table-dark">
+    <tr>
+        <th>user_name</th>
+        <th>現在地</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for t in task %}
+    <tr>
+        <td>{{ t['user_name'] }}</td>
+        <td>{{ t['position'] }}</td>
+        <td>
+            <a href="/delete/{{ t.id }}" class="btn btn-danger btn-sm">削除</a>   <!-- new -->
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+
+<p><a href="/register" class="btn btn-primary btn-lg">ユーザー追加</a></p>
+<p><a href="/play" class="btn btn-primary btn-lg">さあ、始めよう</a></p>
+</table>
+ 
+{% endblock %}

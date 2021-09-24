@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block content %}
+<br>
+<div class="row">
+    <div class="col-md-10">
+        <h1>Play map</h1>
+        <p><a href="/admin" class="btn btn-primary btn-lg">戻る</a></p>
+</div>
+<br>
+{% for u in user %}
+    <tr>
+        <td>{{ u }}</td>
+    </tr>
+{% endfor %}
+<br>
+<table class="table">
+    <thead class="table-dark">
+    <tr>
+        <th>user_id</th>
+        <th>user_name</th>
+        <th>現在地</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for t in task %}
+    <tr>
+        <td>{{ t['id'] }}</td>
+        <td>{{ t['user_name'] }}</td>
+        <td>{{ t['position'] }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<p>{{ data }}</p>
+<form method="get">
+    <button type="submit" value="すごろく">ボタン</button>
+</form>
+<P>{{ position }}</P>
+<!-- <script type="text/javascript" src="{{ url_for('static', path='js/sugoroku.js') }}"></script>  
+<p>
+    <input type="button" value="すごろく" onclick="sample();">
+    <div id="example"></div>
+</p> -->
+{% endblock %}
