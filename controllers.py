@@ -1,4 +1,6 @@
 from fastapi import FastAPI
+from sqlalchemy.sql.functions import count
+from sqlalchemy.sql.sqltypes import Numeric
 from starlette.templating import Jinja2Templates
 from starlette.requests import Request
 from starlette.responses import RedirectResponse
@@ -7,6 +9,7 @@ import db
 from models import User, Task
 import re
 import sugoroku
+import sqlite3
 
 pattern = re.compile(r'\w{4,20}')  # 任意の4~20の英数字を示す正規表現
 
@@ -38,8 +41,11 @@ def admin(request: Request):
 
 async def register(request: Request):
     if request.method == 'GET':
+        task = db.session.query(Task).all()
+        db.session.close()
         return templates.TemplateResponse('register.html',
-                                          {'request': request})
+                                          {'request': request,
+                                            'task': task})
  
     if request.method == 'POST':
         # POSTデータ
@@ -92,32 +98,48 @@ async def register(request: Request):
                                           {'request': request,
                                            'username': username})
 
-first = 0
+first = -1
 async def play(request: Request):
     user = db.session.query(User).all()
     task = db.session.query(Task).all()
-    if request.method == 'POST':
-        db.session.close()
-        return templates.TemplateResponse('play.html',
-                                      {'request': request,
-                                       'user': user,
-                                       'task': task})
-    data = db.session.query(Task).filter(Task.user_name=='user').first()
-    data.position = '10'
+    length = len(user)
     db.session.close()
-    db.session.commit()
+    # if request.method == 'POST':
+    #     db.session.close()
+    #     return templates.TemplateResponse('play.html',
+    #                                   {'request': request,
+    #                                    'user': user,
+    #                                    'task': task})
     if request.method == 'GET':
         global first
-        if first != 0:
+        if first != -1:
             plus_number = sugoroku.sugoroku()
+            task = db.session.query(Task).all()
+            data = task[first%length]
+            now_position = int(data.position)
+            data.position = str(now_position + plus_number)
+            db.session.commit()
+            db.session.close()
+            first += 1
+            if now_position + plus_number >= 100:
+                return templates.TemplateResponse('agari.html',
+                                      {'request': request,
+                                       'user': data})
+            '''セッションをcommit、closeした後にセッション内のインスタンスにアクセスすると以下エラーが発生した。
+            sqlalchemy.orm.exc.DetachedInstanceError: Instance <Book at 0x697a4f0> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: http://sqlalche.me/e/bhk3)
+            デフォルトだとcommitするとセッション内のインスタンスが全て期限切れになるようだ。
+            sessionmakerでexpire_on_commit=Falseオプションを付けると回避可能
+            '''
         else:
-            first = 1
+            first += 1
             plus_number = ''
+            data = db.session.query(Task).filter(Task.user_name=='user').first()
+            db.session.close()
+
         return templates.TemplateResponse('play.html',
                                       {'request': request,
                                        'user': user,
                                        'task': task,
-                                       'data': data,
                                        'position':plus_number})
 
 def delete(request: Request, t_id):
@@ -134,5 +156,4 @@ def delete(request: Request, t_id):
     db.session.delete(user)
     db.session.commit()
     db.session.close()
- 
     return RedirectResponse('/admin')

@@ -10,5 +10,5 @@ engine = create_engine(
    RDB_PATH, echo=ECHO_LOG
 )
  
-Session = sessionmaker(bind=engine)
+Session = sessionmaker(bind=engine, expire_on_commit=False)
 session = Session()

@@ -20,6 +20,11 @@
     <br><br>
     <button type="submit" class="btn btn-primary">登録</button>
 </form>
+    {% for t in task %}
+    <tr>
+        <td>{{ t['user_name'] }}</td>
+    </tr>
+    {% endfor %}
  
 <!-- <p class="text-danger">{% for e in error %}{{ e }}<br>{% endfor %}</p> -->
 <p class="text-danger">{{ error }}</p>
