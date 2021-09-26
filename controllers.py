@@ -9,18 +9,13 @@ import db
 from models import User, Task
 import re
 import sugoroku
-import sqlite3
 
 pattern = re.compile(r'\w{4,20}')  # 任意の4~20の英数字を示す正規表現
 
-app = FastAPI(
-    title='FastAPIでつくるtoDoアプリケーション',
-    description='FastAPIチュートリアル：FastAPI(とstarlette)でシンプルなtoDoアプリを作りましょう．',
-    version='0.9 beta'
-)
+app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-# new テンプレート関連の設定 (jinja2)
+# テンプレート関連の設定 (jinja2)
 templates = Jinja2Templates(directory="templates")
 jinja_env = templates.env  # Jinja2.Environment : filterやglobalの設定用
  
@@ -52,36 +47,17 @@ async def register(request: Request):
         data = await request.form()
         username = data.get('username')
 
-        # error = []
- 
-        # tmp_user = db.session.query(User).filter(User.username == username).first()
- 
-        # # 怒涛のエラー処理
-        # if tmp_user is not None:
-        #     error.append('同じユーザ名のユーザが存在します。')
-         
-        # # エラーがあれば登録ページへ戻す
-        # if error:
-        #     return templates.TemplateResponse('register.html',
-        #                                       {'request': request,
-        #                                        'username': username,
-        #                                        'error': error})
         tmp_user = db.session.query(User).filter(User.username == username).first()
-        # 怒涛のエラー処理
+        task = db.session.query(Task).all()
+        # エラーがあれば登録ページへ戻す
         if tmp_user is not None:
+            db.session.close()
             error = '同じユーザ名のユーザが存在します。'
             return templates.TemplateResponse('register.html',
                                              {'request': request,
-                                            #  'username': username,
+                                             'task': task,
                                              'error': error})
-            
-        # エラーがあれば登録ページへ戻す
-        # if error:
-        #     return templates.TemplateResponse('register.html',
-        #                                      {'request': request,
-        #                                      'username': username,
-        #                                      'error': error})
-    
+        
         # 問題がなければユーザ登録
         user = User(username)
         db.session.add(user)
@@ -104,12 +80,7 @@ async def play(request: Request):
     task = db.session.query(Task).all()
     length = len(user)
     db.session.close()
-    # if request.method == 'POST':
-    #     db.session.close()
-    #     return templates.TemplateResponse('play.html',
-    #                                   {'request': request,
-    #                                    'user': user,
-    #                                    'task': task})
+    
     if request.method == 'GET':
         global first
         if first != -1:

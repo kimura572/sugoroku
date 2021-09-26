@@ -1,6 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
+<link href='../static/css/register.css' rel='stylesheet' type='text/css'>
 <br>
+
 <div class="row">
     <div class="col-md-10">
         <h1>User Registration</h1>
@@ -20,13 +22,20 @@
     <br><br>
     <button type="submit" class="btn btn-primary">登録</button>
 </form>
-    {% for t in task %}
-    <tr>
-        <td>{{ t['user_name'] }}</td>
-    </tr>
-    {% endfor %}
- 
-<!-- <p class="text-danger">{% for e in error %}{{ e }}<br>{% endfor %}</p> -->
+<table class="table">
+    <thead class="table-dark">
+        <tr>
+            <th>user_name</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for t in task %}
+        <tr>
+            <td>{{ t['user_name'] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 <p class="text-danger">{{ error }}</p>
  
 {% endblock %}

@@ -1,18 +1,16 @@
 {% extends "layout.html" %}
 {% block content %}
+<link href='../static/css/admin.css' rel='stylesheet' type='text/css'>
 <br>
-<h2>Administrator page</h2>
-
-{% for u in user %}
-    <tr>
-        <td>{{ u }}</td>
-    </tr>
-{% endfor %}
+<h2>ユーザー   一覧</h2>
 <br>
-<div class="col-md-2">
+<div class="col-md-3">
     <a href="/" class="btn btn-primary">トップページへ</a>
+    <br>
+    <br>
+    <br>
+    <p><a href="/register" class="btn btn-primary btn-lg">ユーザー追加</a></p>
 </div>
-<br>
 <br>
 <table class="table">
     <thead class="table-dark">
@@ -28,14 +26,13 @@
         <td>{{ t['user_name'] }}</td>
         <td>{{ t['position'] }}</td>
         <td>
-            <a href="/delete/{{ t.id }}" class="btn btn-danger btn-sm">削除</a>   <!-- new -->
+            <a href="/delete/{{ t.id }}" class="btn btn-danger btn-sm">削除</a>
         </td>
     </tr>
     {% endfor %}
     </tbody>
-
-<p><a href="/register" class="btn btn-primary btn-lg">ユーザー追加</a></p>
-<p><a href="/play" class="btn btn-primary btn-lg">さあ、始めよう</a></p>
 </table>
- 
+
+<p><a href="/play" class="btn btn-primary btn-lg">さあ、始めよう</a></p> 
+
 {% endblock %}

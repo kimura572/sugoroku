@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
+<link href='../static/css/play.css' rel='stylesheet' type='text/css'>
 <br>
 <div class="row">
     <div class="col-md-10">
@@ -16,7 +17,6 @@
 <table class="table">
     <thead class="table-dark">
     <tr>
-        <th>user_id</th>
         <th>user_name</th>
         <th>現在地</th>
     </tr>
@@ -24,7 +24,6 @@
     <tbody>
     {% for t in task %}
     <tr>
-        <td>{{ t['id'] }}</td>
         <td>{{ t['user_name'] }}</td>
         <td>{{ t['position'] }}</td>
     </tr>
@@ -32,7 +31,7 @@
     </tbody>
 </table>
 <form method="get">
-    <button type="submit" value="すごろく">ボタン</button>
+    <button type="submit" value="すごろく">サイコロをふる</button>
 </form>
-<P>{{ position }}</P>
+<P class="position">{{ position }}</P>
 {% endblock %}
