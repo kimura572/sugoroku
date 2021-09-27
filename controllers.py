@@ -92,7 +92,7 @@ async def play(request: Request):
             db.session.commit()
             db.session.close()
             first += 1
-            if now_position + plus_number >= 100:
+            if now_position + plus_number >= 40:
                 return templates.TemplateResponse('agari.html',
                                       {'request': request,
                                        'user': data})
