@@ -5,3 +5,37 @@
 button {
   background-color: lightseagreen;
 }
+.new {
+  table-layout: fixed;
+  /* background: rgba(247, 247, 244, 0.2); */
+  width: 100%;
+  text-align: center;
+}
+
+.color {
+  color: teal;
+  background-color: white;
+}
+
+.start,.goal {
+  color: tomato;
+  background-color: white;
+}
+.back {
+  background-color: rgba(122,122,0,0.50);
+}
+.num {
+  background-color: white;
+}
+.plus {
+  background-color: lightskyblue;
+}
+.minus {
+  background-color: lightpink;
+}
+.to0 {
+  background-color: maroon;
+}
+/* #\31{
+  background-color: maroon;
+} */

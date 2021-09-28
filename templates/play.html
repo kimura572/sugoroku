@@ -4,15 +4,11 @@
 <br>
 <div class="row">
     <div class="col-md-10">
-        <h1>Play map</h1>
+        <h1 id="midashi">Play map</h1>
         <p><a href="/admin" class="btn btn-primary btn-lg">戻る</a></p>
 </div>
 <br>
-{% for u in user %}
-    <tr>
-        <td>{{ u }}</td>
-    </tr>
-{% endfor %}
+<h2>goal = 24</h2>
 <br>
 <table class="table">
     <thead class="table-dark">
@@ -30,8 +26,116 @@
     {% endfor %}
     </tbody>
 </table>
+<table class="new" border="1">
+    <tr>
+        <td class="goal" id="0">START!</td>
+        <td class="color">⇨</td>
+        <td class="plus" id="1">+2</td>
+        <td class="color">⇨</td>
+        <td class="num" id="2"></td>
+        <td class="color">⇨</td>
+        <td class="num" id="3"></td>
+        <td class="color">⇨</td>
+        <td class="num" id="4"></td>
+    </tr>
+    <tr>
+        <td class="back"></td>
+        <td class="back"></td>
+        <td class="back"></td>
+        <td class="back"></td>
+        <td class="back"></td>
+        <td class="back"></td>
+        <td class="back"></td>
+        <td class="back"></td>
+        <td class="color">⇩</td>
+    </tr>
+    <tr>
+        <td class="num" id="9"></td>
+        <td class="color">⇦</td>
+        <td class="plus" id="8">+1</td>
+        <td class="color">⇦</td>
+        <td class="num" id="7"></td>
+        <td class="color">⇦</td>
+        <td class="minus" id="6">-2</td>
+        <td class="color">⇦</td>
+        <td class="plus" id="5">+2</td>
+    </tr>
+    <tr>
+        <td class="color">⇩</td>
+        <td class="back"></td>
+        <td class="back"></td>
+        <td class="back"></td>
+        <td class="back"></td>
+        <td class="back"></td>
+        <td class="back"></td>
+        <td class="back"></td>
+        <td class="back"></td>
+    </tr>
+    <tr>
+        <td class="num" id="10"></td>
+        <td class="color">⇨</td>
+        <td class="num" id="11"></td>
+        <td class="color">⇨</td>
+        <td class="plus" id="12">+2</td>
+        <td class="color">⇨</td>
+        <td class="minus" id="13">-2</td>
+        <td class="color">⇨</td>
+        <td class="num" id="14"></td>
+    </tr>
+    <tr>
+        <td class="back"></td>
+        <td class="back"></td>
+        <td class="back"></td>
+        <td class="back"></td>
+        <td class="back"></td>
+        <td class="back"></td>
+        <td class="back"></td>
+        <td class="back"></td>
+        <td class="color">⇩</td>
+    </tr>   
+    <tr>
+        <td class="num" id="19"></td>
+        <td class="color">⇦</td>
+        <td class="minus" id="18">-1</td>
+        <td class="color">⇦</td>
+        <td class="num" id="17"></td>
+        <td class="color">⇦</td>
+        <td class="num" id="16"></td>
+        <td class="color">⇦</td>
+        <td class="plus" id="15">+2</td>
+    </tr>
+    <tr>
+        <td class="color">⇩</td>
+        <td class="back"></td>
+        <td class="back"></td>
+        <td class="back"></td>
+        <td class="back"></td>
+        <td class="back"></td>
+        <td class="back"></td>
+        <td class="back"></td>
+        <td class="back"></td>
+    </tr>
+    <tr>
+        <td class="plus" id="20">+1</td>
+        <td class="color">⇨</td>
+        <td class="num" id="21"></td>
+        <td class="color">⇨</td>
+        <td class="to0" id="22">0へ</td>
+        <td class="color">⇨</td>
+        <td class="minus" id="23">-2</td>
+        <td class="color">⇨</td>
+        <td class="goal" id="goal">GOAL!!</td>
+    </tr>  
+</table>
+
 <form method="get">
+    <br>
     <button type="submit" value="すごろく">サイコロをふる</button>
+    <p class="position">{{ position }}</p>
 </form>
-<P class="position">{{ position }}</P>
+<script>
+    var m = {{ positions }};
+    var td = document.getElementById( m );
+    td.style.backgroundColor = 'yellow';
+</script>
 {% endblock %}
