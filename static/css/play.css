@@ -7,7 +7,6 @@ button {
 }
 .new {
   table-layout: fixed;
-  /* background: rgba(247, 247, 244, 0.2); */
   width: 100%;
   text-align: center;
 }
