@@ -1,6 +1,4 @@
 from fastapi import FastAPI
-from sqlalchemy.sql.functions import count
-from sqlalchemy.sql.sqltypes import Numeric
 from starlette.templating import Jinja2Templates
 from starlette.requests import Request
 from starlette.responses import RedirectResponse
@@ -8,17 +6,30 @@ from fastapi.staticfiles import StaticFiles
 import db
 from models import User, Task
 import re
-import sugoroku
+import sugoroku, position
+# from fastapi.middleware.cors import CORSMiddleware
 
 pattern = re.compile(r'\w{4,20}')  # 任意の4~20の英数字を示す正規表現
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
+# origins = [
+#     "*"
+# ]
+
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=origins,
+#     allow_credentials=True,
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+# )
+
 
 # テンプレート関連の設定 (jinja2)
 templates = Jinja2Templates(directory="templates")
 jinja_env = templates.env  # Jinja2.Environment : filterやglobalの設定用
- 
+
 def index(request: Request):
     return templates.TemplateResponse('index.html',
                                       {'request': request})
@@ -88,35 +99,7 @@ async def play(request: Request):
             task = db.session.query(Task).all()
             data = task[first%length]
             now_position = int(data.position)
-            positions = now_position
-            positions += plus_number
-            if now_position + plus_number == 8 \
-                or now_position + plus_number == 20:
-                data.position = str(now_position + plus_number+1)
-                positions += 1
-
-            elif now_position + plus_number == 1 \
-                or now_position + plus_number == 5 \
-                or now_position + plus_number == 12 \
-                or now_position + plus_number == 15:
-                data.position = str(now_position + plus_number+2)
-                positions += 2
-
-            elif now_position + plus_number == 18:
-                data.position = str(now_position + plus_number-1)
-                positions -= 1
-                
-            elif now_position + plus_number == 6 \
-                or now_position + plus_number == 13 \
-                or now_position + plus_number == 23:
-                data.position = str(now_position + plus_number-2)
-                positions -= 2
-            
-            elif now_position + plus_number == 22:
-                data.position = str(0)
-            
-            else:
-                data.position = str(now_position + plus_number)
+            data, positions = position.position(now_position, plus_number, positions, data)
             db.session.commit()
             db.session.close()
             first += 1
