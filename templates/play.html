@@ -15,13 +15,16 @@
     <tr>
         <th>user_name</th>
         <th>現在地</th>
+        <th>残り</th>
     </tr>
     </thead>
     <tbody>
     {% for t in task %}
+    
     <tr>
         <td>{{ t['user_name'] }}</td>
         <td>{{ t['position'] }}</td>
+        <td>{{ t['remain'] }}</td>
     </tr>
     {% endfor %}
     </tbody>
@@ -130,7 +133,7 @@
 
 <form method="get">
     <br>
-    <button type="submit" value="すごろく" onclick="saikoro();shaker();">サイコロをふる</button>
+    <button type="submit" value="すごろく" onclick="saikoro();">サイコロをふる</button>
 </form>
 <script>
     var ml = {{ positions }};
@@ -176,6 +179,7 @@
     window.onload = function(){
         shake();        // 一回だけサイコロを振る
     }
+</script>
 </script>
 <script src="../static/js/play.js"></script>
 <div id="saikoro"></div>

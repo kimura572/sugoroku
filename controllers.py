@@ -76,7 +76,8 @@ async def register(request: Request):
         task = Task(
             user_id=user.id,
             user_name=username,
-            position=0)
+            position=0,
+            remain=24)
         db.session.add(task)
         db.session.commit()
         db.session.close()

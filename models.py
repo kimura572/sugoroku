@@ -44,6 +44,7 @@ class Task(Base):
     user_id  : 外部キー
     username : ユーザネーム
     position : 現在地
+    remain : 残り
     """
     __tablename__ = 'task'
     id = Column(
@@ -56,14 +57,17 @@ class Task(Base):
     user_id = Column('user_id', ForeignKey('user.id'))
     user_name = Column('user_name', String(256))
     position = Column('position', Integer)
+    remain = Column('remain', Integer)
  
-    def __init__(self, user_id: int, user_name: str, position: int):
+    def __init__(self, user_id: int, user_name: str, position: int, remain: int):
         self.user_id = user_id
         self.user_name = user_name
         self.position = position
+        self.remain = remain
  
     def __str__(self):
         return str(self.id) + \
                ': user_id -> ' + str(self.user_id) + \
                ': user_name -> ' + str(self.user_name) + \
-               ', position -> ' + str(self.position)
+               ', position -> ' + str(self.position) + \
+               ', remain -> ' + str(self.remain)
