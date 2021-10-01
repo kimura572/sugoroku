@@ -35,6 +35,7 @@ button {
 .to0 {
   background-color: maroon;
 }
-/* #\31{
-  background-color: maroon;
-} */
+.lucky {
+  font-size: 32px;
+  color: aliceblue;
+}

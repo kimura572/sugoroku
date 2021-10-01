@@ -93,6 +93,7 @@ async def play(request: Request):
     length = len(user)
     db.session.close()
     positions = 0
+    lucky_number = ''
     if request.method == 'GET':
         global first
         if first != -1:
@@ -100,7 +101,7 @@ async def play(request: Request):
             task = db.session.query(Task).all()
             data = task[first%length]
             now_position = int(data.position)
-            data, positions = position.position(now_position, plus_number, positions, data)
+            data, positions, lucky_number = position.position(now_position, plus_number, positions, data)
             db.session.commit()
             db.session.close()
             first += 1
@@ -124,7 +125,8 @@ async def play(request: Request):
                                        'user': user,
                                        'task': task,
                                        'position':plus_number,
-                                       'positions':positions})
+                                       'positions':positions,
+                                       'lucky_number':lucky_number})
 
 def delete(request: Request, t_id):
     # 該当タスクを取得
