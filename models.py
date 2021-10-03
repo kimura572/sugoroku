@@ -42,7 +42,7 @@ class Task(Base):
  
     id       : 主キー
     user_id  : 外部キー
-    username : ユーザネーム
+    user_name : ユーザネーム
     position : 現在地
     remain : 残り
     """

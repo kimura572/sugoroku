@@ -87,6 +87,7 @@ async def register(request: Request):
                                            'username': username})
 
 first = -1
+l = [0,0,0,0,0]
 async def play(request: Request):
     user = db.session.query(User).all()
     task = db.session.query(Task).all()
@@ -100,8 +101,10 @@ async def play(request: Request):
             plus_number = sugoroku.sugoroku()
             task = db.session.query(Task).all()
             data = task[first%length]
+            user = data.user_name
             now_position = int(data.position)
             data, positions, lucky_number = position.position(now_position, plus_number, positions, data)
+            l[first%length] = positions
             db.session.commit()
             db.session.close()
             first += 1
@@ -117,8 +120,9 @@ async def play(request: Request):
         else:
             first += 1
             plus_number = ''
-            data = db.session.query(Task).filter(Task.user_name=='user').first()
-            db.session.close()
+            # data = db.session.query(Task).filter(Task.user_name=='user').first()
+            # db.session.close()
+            user = ''
 
         return templates.TemplateResponse('play.html',
                                       {'request': request,
@@ -127,7 +131,8 @@ async def play(request: Request):
                                        'position':plus_number,
                                        'positions':positions,
                                        'lucky_number':lucky_number,
-                                       'user_number': first%length})
+                                       'user_number': first%length,
+                                       'position_list': l})
 
 def delete(request: Request, t_id):
     # 該当タスクを取得

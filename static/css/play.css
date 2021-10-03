@@ -39,3 +39,26 @@ button {
   font-size: 32px;
   color: aliceblue;
 }
+table.table tr:nth-child(1) td:nth-child(2) {
+	color: white;
+	background-color: orange;
+}
+table.table tr:nth-child(2) td:nth-child(2) {
+	color: #fff;
+	background-color: green;
+}
+table.table tr:nth-child(3) td:nth-child(2) {
+  color: white;
+	background-color: blue;
+}
+table.table tr:nth-child(4) td:nth-child(2) {
+  color: white;
+	background-color: red;
+}
+table.table tr:nth-child(5) td:nth-child(2) {
+  color: white;
+	background-color: purple;
+}
+#usernow {
+  color: #fff;
+}

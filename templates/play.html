@@ -4,8 +4,9 @@
 <br>
 <div class="row">
     <div class="col-md-10">
-        <h1 id="midashi">Play map</h1>
+        <h2 id="midashi">Play map</h2>
         <p><a href="/admin" class="btn btn-primary btn-lg">戻る</a></p>
+        <h3 id="usernow">サイコロを振ったユーザー: {{ user }}</h3>
 </div>
 <br>
 <br>
@@ -19,10 +20,9 @@
     </thead>
     <tbody>
     {% for t in task %}
-    
     <tr>
         <td>{{ t['user_name'] }}</td>
-        <td>{{ t['position'] }}</td>
+        <td class=t>{{ t['position'] }}</td>
         <td>{{ t['remain'] }}</td>
     </tr>
     {% endfor %}
@@ -135,16 +135,69 @@
     <button type="submit" value="すごろく" onclick="saikoro();">サイコロをふる</button>
 </form>
 <script>
-    var user_number = {{ user_number }};
     var ml = {{ positions }};
     var m = {{ position }};
     var td = document.getElementById( ml );
+    var l = {{ position_list }};
+    var user_number = {{ user_number }};
 
-    if (user_number == 1) {
-        td.style.backgroundColor = 'yellow';
-    }else if (user_number == 0) {
-        td.style.backgroundColor = 'green';
+    if (user_number == 0) {
+        var td0 = document.getElementById( l[0] );
+        var td1 = document.getElementById( l[1] );
+        var td2 = document.getElementById( l[2] );
+        var td3 = document.getElementById( l[3] );
+        var td4 = document.getElementById( l[4] );
+        td0.style.backgroundColor = 'orange';
+        td1.style.backgroundColor = 'green';
+        td2.style.backgroundColor = 'blue';
+        td3.style.backgroundColor = 'red';
+        td4.style.backgroundColor = 'purple';
+    } else if (user_number == 1) {
+        var td0 = document.getElementById( l[0] );
+        var td1 = document.getElementById( l[1] );
+        var td2 = document.getElementById( l[2] );
+        var td3 = document.getElementById( l[3] );
+        var td4 = document.getElementById( l[4] );
+        td0.style.backgroundColor = 'orange';
+        td1.style.backgroundColor = 'green';
+        td2.style.backgroundColor = 'blue';
+        td3.style.backgroundColor = 'red';
+        td4.style.backgroundColor = 'purple';
+    } else if (user_number == 2) {
+        var td0 = document.getElementById( l[0] );
+        var td1 = document.getElementById( l[1] );
+        var td2 = document.getElementById( l[2] );
+        var td3 = document.getElementById( l[3] );
+        var td4 = document.getElementById( l[4] );
+        td0.style.backgroundColor = 'orange';
+        td1.style.backgroundColor = 'green';
+        td2.style.backgroundColor = 'blue';
+        td3.style.backgroundColor = 'red';
+        td4.style.backgroundColor = 'purple';
+    } else if (user_number == 3) {
+        var td0 = document.getElementById( l[0] );
+        var td1 = document.getElementById( l[1] );
+        var td2 = document.getElementById( l[2] );
+        var td3 = document.getElementById( l[3] );
+        var td4 = document.getElementById( l[4] );
+        td0.style.backgroundColor = 'orange';
+        td1.style.backgroundColor = 'green';
+        td2.style.backgroundColor = 'blue';
+        td3.style.backgroundColor = 'red';
+        td4.style.backgroundColor = 'purple';
+    } else if (user_number == 4) {
+        var td0 = document.getElementById( l[0] );
+        var td1 = document.getElementById( l[1] );
+        var td2 = document.getElementById( l[2] );
+        var td3 = document.getElementById( l[3] );
+        var td4 = document.getElementById( l[4] );
+        td0.style.backgroundColor = 'orange';
+        td1.style.backgroundColor = 'green';
+        td2.style.backgroundColor = 'blue';
+        td3.style.backgroundColor = 'red';
+        td4.style.backgroundColor = 'purple';
     }
+    
     // td.style.backgroundColor = 'yellow';
     var count;  // 変化しているように見せる回数
     var $id = function(id){ return document.getElementById(id); };
