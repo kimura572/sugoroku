@@ -135,17 +135,19 @@
     <button type="submit" value="すごろく" onclick="saikoro();">サイコロをふる</button>
 </form>
 <script>
+    var user_number = {{ user_number }};
     var ml = {{ positions }};
     var m = {{ position }};
     var td = document.getElementById( ml );
-    td.style.backgroundColor = 'yellow';
-    // function shaker(){
-    //     i = m+ ".png";                         // 画像ファイル名生成
-    //     $id("image").innerHTML = "<img src='../static/image/" + i + "' width='64' height='64'>";
-    // }
+
+    if (user_number == 1) {
+        td.style.backgroundColor = 'yellow';
+    }else if (user_number == 0) {
+        td.style.backgroundColor = 'green';
+    }
+    // td.style.backgroundColor = 'yellow';
     var count;  // 変化しているように見せる回数
     var $id = function(id){ return document.getElementById(id); };
-
     /*
     * サイコロを振る
     */
@@ -178,7 +180,6 @@
     window.onload = function(){
         shake();        // 一回だけサイコロを振る
     }
-</script>
 </script>
 <script src="../static/js/play.js"></script>
 <div id="saikoro"></div>

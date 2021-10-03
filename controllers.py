@@ -126,7 +126,8 @@ async def play(request: Request):
                                        'task': task,
                                        'position':plus_number,
                                        'positions':positions,
-                                       'lucky_number':lucky_number})
+                                       'lucky_number':lucky_number,
+                                       'user_number': first%length})
 
 def delete(request: Request, t_id):
     # 該当タスクを取得
